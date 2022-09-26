@@ -5,7 +5,7 @@ import pandas as pd
 import time
 import random 
 
-st.beta_set_page_config(page_icon="🐐")
+# st.beta_set_page_config(page_icon="🐐")
 st.set_page_config(page_title="secretBakra2.0",layout="wide")
 
 st.markdown("""
