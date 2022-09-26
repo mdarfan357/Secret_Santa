@@ -1,6 +1,6 @@
 import streamlit as st
 from csv import writer
-import pyautogui
+# import pyautogui
 import pandas as pd
 import time
 import random 
@@ -140,7 +140,7 @@ if rad == "Sign In":
                 st.success("Success")
                 st.write("Please redirect to the login page...")
                 time.sleep(2)
-                pyautogui.hotkey('ctrl', 'f5')
+#                 pyautogui.hotkey('ctrl', 'f5')
             else:
                 st.error("Passwords don't match")
         else:
