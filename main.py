@@ -69,7 +69,7 @@ df = pd.read_csv("database.csv")
 name = shuffle(df,seed)
 rad = st.sidebar.radio("Navigation",["Home","Sign In"])
 
-st.tabss
+
 
 if rad == "Home":
     
