@@ -6,6 +6,8 @@ st.set_page_config(
     page_icon = "🐐"
 )
 
+password = st.text_input("Enter Key")
+
 if password == st.secrets.DEV_KEY:
     tab_titles = ["Create Apps","Run Visualization charts","Display Outputs","Deploy the apps on the cloud"]
 
