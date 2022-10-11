@@ -1,4 +1,8 @@
 import streamlit as st
+import os
+
+os.chdir("../web_app")
+
 from 1_🏠home_page import append_to_csv
 
 
