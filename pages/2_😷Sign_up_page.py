@@ -3,7 +3,7 @@ import os
 
 os.chdir("../web_app")
 
-from 1_🏠home_page import append_to_csv
+from helper import append_to_csv
 
 
 st.title("Registration form")
