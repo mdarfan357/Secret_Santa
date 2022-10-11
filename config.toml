@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "secretbakra-db",
+  "private_key_id": "4ac878a83c7d0d5c5b90c73633bd990130724f0f",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQCRDsL+AuJhRQtJ\nphwZbpk3UfMcaTNj/izOoW0D+toScOzi2pHBvroFHTbAWD6/Y2ncVNcQzy4FvdN4\nYDQq+KZn/g1ONoXQIiErnDW0NBOd1e72UnymVTgvlIPBqlwEApqumwK9izmOeIKY\njNM4M/vrq0tob6LaApI6fXXcitHRuEIInOyAAG9EH+ECQjiFnWfrMqE73/7nkFxR\nM89gyxPJSc7v8lYBOWI238dr4Lmo7FgC8Nj45geH7/QgZjKZMp5dx0JusfPkfR52\nc9iUnSlln6N8FwEh3E7X0BlH2qDioAH42Asb3MUAGtkimdUgBSJ6yXyePitqtdsW\ny7n/dm31AgMBAAECggEABJd1h6natZ6EYXPvHsT3957R9bvEwy0ICRBmDYKyxXOq\no/GsPHhHliLbGVKRxeglMTLETgVo3QipuX0+GYAecFtD245xROnXp/Q9ZPNjDZN4\niXaJ+I/pA+SNGSPF3uCgOdexSgOusjpRU/fdNcG7fzXAYNFr07/SFiTjhrQkOSGy\nTbQIrFAPmGWfAzfm6B+CKYD3Ae312kH2dK6dHvNDayDEMQ8FpnoJxrki4LNoTJk1\n9yOdt8UaSUpZpSR3ZqdOYYap0hZDTbsD1KbYsGkOC2FaGQwyIRKuWw1dWxMIdJc1\n9hjaTgGH205ax/siLxR5XH50quIoOLi2x3+HkkIe4QKBgQDEWRskL2VUPg42RsjV\npof82RDB3YUoTgGW2VAyNH8qnYsvZKIa9g5cJHk4ZTRcjt6/ZONAHuAwr1u2awwj\n7UdU86VEKFf+WVH50YW4+96rDigcSVPbQ3wc6ZQSn1+CbAsEZAZoJwv1opdeXa5n\nDXSmCXqNOsUuiNasSB22Ro0xhQKBgQC9IJB7k7VXEIgVX108HqWUaM6yhkedQIuJ\nWmMdImB5Qe80Y9wVGOd9rdZ5FJUp802ickvu8IEctJcWV/vFmh+bATwM3gDv7fmm\noQVnkhyn3/aypgvfT3+MWzvp+XJ6IvSu73tEMzdgA5aYpzCjip3CWr+FSBlGkarr\n5Yht/6i9sQKBgH/NiC8bcpdM9S87D8qRZP6dw5yMtfmwHLS1qs+jAAsbFNe6ZxGp\ni1tKmmSs61I75J0r7Ad2kXLfEZFBSFuyPLX9CVu97tiuBv/W83We7CbnRhBzYlPc\nL1MabrlYZ3CbJuiqusjccZpnRKO10qldRso0bUK0OFi71Q+6uSxF6+2JAoGAKcQs\nRC4tiOmss9OYmnNGK80tgH1pCVA8wHuGkeOKnJyz/8Th0ILsdHPUfm7ONjJ1/Z7y\nJ/VS/gzfpN6PSmcr/aY7JbhNSq8qR+Mdd27sByLNr0w+KPW8fDmVtKkS3+giUxOu\nDDSnUPvZ4SJi+mrdRhOWYg+3DT+UGH5bL7ebAzECgYEAtE8D0T32Nh4bhpX3GwyJ\n+vsDy3aOqtamnZ25r+BFrbb4yEknIobcj+T2MjVimFDZZe+nifII8BXtdQC5OBmA\n21RjbCDG32mkh68QXHdB9hQRHhzQUubJ6AeQ5udxy/eqZiDChjg6b5GoUlJiWSTI\nCtf+RjpEWIw+2XF1bFrjK7w=\n-----END PRIVATE KEY-----\n",
+  "client_email": "mohammed-arfan@secretbakra-db.iam.gserviceaccount.com",
+  "client_id": "115250989072895586518",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/mohammed-arfan%40secretbakra-db.iam.gserviceaccount.com"
+}
