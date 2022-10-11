@@ -26,7 +26,7 @@ st.markdown("<h1 style='text-align: center;'>secretBakra2.0</h1>", unsafe_allow_
 
 _left, mid, _right,r1,r2,r3 = st.columns(6)
 with _right:
-   st.image("https://media.tenor.com/IgO6EgqoAMkAAAAd/billy-goat-playing-guitar-playing-instrument.gif",width=400)
+   st.image("https://media.tenor.com/IgO6EgqoAMkAAAAd/billy-goat-playing-guitar-playing-instrument.gif",width=450)
  
 
 seed = None
