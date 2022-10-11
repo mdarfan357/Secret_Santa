@@ -83,33 +83,32 @@ rad = st.sidebar.radio("Navigation",["Home","Sign In"])
 
 
 
-if rad == "Home":
+
     
-    st.title("Login")
-    user,pw = st.columns(2)
-    usernames = df["User Name"]
-    usernames = usernames.to_list()
-    usernames = tuple(usernames)
-    username = user.selectbox("Username",usernames,index = 0)
-    password = pw.text_input("Password",type="password")
+st.title("Login")
+user,pw = st.columns(2)
+usernames = df["User Name"]
+usernames = usernames.to_list()
+usernames = tuple(usernames)
+username = user.selectbox("Username",usernames,index = 0)
+password = pw.text_input("Password",type="password")
 
-    ch,bl,log = st.columns(3)
-    login = log.button("Login")
+ch,bl,log = st.columns(3)
+login = log.button("Login")
 
-    if login:
-        if True:
-            u_idx = usernames.index(username)
-            passwrd = df.Password[u_idx]
-            if passwrd == password:
-                progress = st.progress(0)
-                for i in range(100):
-                    time.sleep(0.0005)
-                    progress.progress(i+1)
-
-                st.write(f"{username} your secret Bakra is {name[username]}")   
-            else:
-                st.error("Invalid password")
-    st.write("""---""")
+if login:
+    if True:
+        u_idx = usernames.index(username)
+        passwrd = df.Password[u_idx]
+        if passwrd == password:
+            progress = st.progress(0)
+            for i in range(100):
+                time.sleep(0.0005)
+                progress.progress(i+1)
+            st.write(f"{username} your secret Bakra is {name[username]}")   
+        else:
+            st.error("Invalid password")
+            st.write("""---""")
     
    
         
