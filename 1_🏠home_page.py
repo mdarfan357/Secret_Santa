@@ -24,7 +24,7 @@ st.markdown("""
 # st.markdown('<p class="big-font">secretBakra2.0</p>', unsafe_allow_html=True)
 st.markdown("<h1 style='text-align: center;'>secretBakra2.0</h1>", unsafe_allow_html=True)
 
-_left, mid, _right,r1,r2 = st.columns(5)
+_left, mid, _right,r1,r2,r3 = st.columns(6)
 with _right:
    st.image("https://media.tenor.com/IgO6EgqoAMkAAAAd/billy-goat-playing-guitar-playing-instrument.gif",width=400)
  
