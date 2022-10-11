@@ -35,7 +35,7 @@ if submit:
 #                 pyautogui.hotkey('ctrl', 'f5')
         else:
             st.error("Passwords don't match")
-    else:
-        st.error("Please fill all the * credentials")
+   else:
+      st.error("Please fill all the * credentials")
 
 st.write("""---""")
