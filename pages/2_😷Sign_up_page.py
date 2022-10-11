@@ -30,7 +30,13 @@ if submit:
         if pw == pw2:
             append_to_csv(first,last,email,mob,user,pw)
             st.success("Success")
-            st.write("Please redirect to the login page...")
+            st.write(f'''
+             <a target="_self" href="https://mdarfan357-web-app-1-home-page-56su7f.streamlitapp.com/">
+                 <button>
+                     Please login via the home page
+                 </button>
+             </a>
+             ''',unsafe_allow_html=True)
             time.sleep(2)
 #                 pyautogui.hotkey('ctrl', 'f5')
         else:
