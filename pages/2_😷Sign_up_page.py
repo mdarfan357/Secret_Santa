@@ -1,5 +1,5 @@
 import streamlit as st
-from 1__🏠home_page import append_to_csv
+from 1_🏠home_page import append_to_csv
 
 
 st.title("Registration form")
