@@ -10,7 +10,7 @@ st.set_page_config(
     layout="wide",
     page_icon = "🐐"
 )
-st.link("https://media.tenor.com/IgO6EgqoAMkAAAAd/billy-goat-playing-guitar-playing-instrument.gif")
+st.image("https://media.tenor.com/IgO6EgqoAMkAAAAd/billy-goat-playing-guitar-playing-instrument.gif")
 
 
 
