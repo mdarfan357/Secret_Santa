@@ -5,7 +5,7 @@ st.set_page_config(
     page_title = "Multipage App",
     page_icon = "🐐"
 )
-
+st.write("HI this is the page for developers...")
 password = st.text_input("Enter Key",type = "password")
 
 if password == st.secrets.DEV_KEY:
