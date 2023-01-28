@@ -2,7 +2,7 @@
 
 ## Problem
 
-We have always been in the situation where we want to play secret santa with our friends and family. The traditional way of randomly getting your santa is by picking out chits. The problem with this approch is that there could be a situation where *a person would get his own name as the santa*, More over because of the secretive behavior of the players after getting there santa names *there is no way of validating the names* after they are picked without breaching the confidentiality of the game.
+We have always been in the situation where we want to play secret santa with our friends and family. The traditional way of randomly getting your santa is by picking out chits. The problem with this approch is that there could be a situation where **a person would get his own name as the santa**, More over because of the secretive behavior of the players after getting there santa names **there is no way of validating the names** after they are picked without breaching the confidentiality of the game.
 
 
 The following repo contains two possible solutions to secret santa game.
