@@ -19,7 +19,12 @@ I have tried to create a program using python that takes in the users and there 
 
 
 NOTE : The sender needs to activate an App password for this [link for help](https://support.google.com/mail/answer/185833?hl=en). This is done because the mail is beinging sent from code which is bad according to google in terms of security.    
+
+Create an app password accordingly:
 ![image](https://user-images.githubusercontent.com/77487906/215283075-7f42c1f4-13b0-44fd-940f-b095526ce609.png)
+
+Edit the appropriate values for these variables in the mail.py file and run the mail.py file to send the mail to all the receivers.
+![image](https://user-images.githubusercontent.com/77487906/215283743-4fce9cb6-e65f-4bd0-b5ff-1b63be3cdcd1.png)
 
 
 [![Streamlit App](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://mdarfan357-sb2.streamlit.app/)
