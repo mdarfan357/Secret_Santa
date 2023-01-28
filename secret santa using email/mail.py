@@ -8,7 +8,8 @@ data = pd.read_csv("receiver.csv")
 
 emailDir = {data.Name[i]:data.Email[i] for i in range(len(data.Name))}
 
-senders_mail = "ABC@gmail.com" # change accordinly
+senders_mail = "ABC@gmail.com" # change accordingly
+senders_app_password = "cuqeyodlyfrxeep" # change accordingly
 
 
 allnames = data.Name
@@ -28,7 +29,7 @@ if random_name_run.check():
         ob = s.SMTP("smtp.gmail.com",587)
         ob.ehlo()
         ob.starttls()
-        ob.login("mdarfan149@gmail.com","cuqeyodlyfrxeepl")
+        ob.login(senders_mail,senders_app_password)
         
         subject = "SECRET BAKRA 2023"
         
