@@ -25,6 +25,7 @@ Create an app password accordingly:
 ![image](https://user-images.githubusercontent.com/77487906/215283075-7f42c1f4-13b0-44fd-940f-b095526ce609.png)
 
 Change the values for these variables in the mail.py file according to your use case and run the mail.py file to send the mails to all the receivers.
+
 ![image](https://user-images.githubusercontent.com/77487906/215283743-4fce9cb6-e65f-4bd0-b5ff-1b63be3cdcd1.png)
 
 
