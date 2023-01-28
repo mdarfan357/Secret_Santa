@@ -1,4 +1,3 @@
-# web_app
 
 ## Problem
 
@@ -8,6 +7,8 @@ We have always been in the situation where we want to play secret santa with our
 The following repo contains two possible solutions to secret santa game.
 
 ## Solution 1 - login to see your santa 
+
+[![Streamlit App](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://mdarfan357-sb2.streamlit.app/)
  
 In this we use a login page that displays your santa as you login to the site. This is achieved by using Streamlit as a frontend and python and csv as backend of the site. This approch is a little naive as the security is weak, But the program was meant to be run locally on your personal computers. 
 
@@ -27,4 +28,4 @@ Change the values for these variables in the mail.py file according to your use 
 ![image](https://user-images.githubusercontent.com/77487906/215283743-4fce9cb6-e65f-4bd0-b5ff-1b63be3cdcd1.png)
 
 
-[![Streamlit App](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://mdarfan357-sb2.streamlit.app/)
+
