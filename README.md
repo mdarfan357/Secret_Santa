@@ -28,4 +28,6 @@ Change the values for these variables in the mail.py file according to your use 
 ![image](https://user-images.githubusercontent.com/77487906/215283743-4fce9cb6-e65f-4bd0-b5ff-1b63be3cdcd1.png)
 
 
+I have personally used this program for my personal use case and here is how the output looks like: 
+![image](https://user-images.githubusercontent.com/77487906/215284024-98b98153-0480-49df-929c-dd3405617e76.png)
 
