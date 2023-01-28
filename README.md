@@ -15,6 +15,11 @@ When some one signs up to the website there credentials are stored on the databa
 
 ## Solution 2 - sending names by emails 
 
-I have tried to create a program that takes in the number of users
+I have tried to create a program using python that takes in the users and there emails in a csv file and generates vaild santa names everytime using the names in the csv file receivers.csv. Once the names are generated the program validates the names then it starts sending emails to all the receivers using email. 
+
+
+NOTE : The sender needs to activate an App password for this [link for help](https://support.google.com/mail/answer/185833?hl=en). This is done because the mail is beinging sent from code which is bad according to google in terms of security.    
+![image](https://user-images.githubusercontent.com/77487906/215283075-7f42c1f4-13b0-44fd-940f-b095526ce609.png)
+
 
 [![Streamlit App](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://mdarfan357-sb2.streamlit.app/)
