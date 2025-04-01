@@ -1,0 +1,700 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Secret Santa Messenger</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.4.1/socket.io.min.js"></script>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    
+    body {
+      background-color: #f5f5f5;
+      padding: 20px;
+    }
+    
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      background-color: white;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      overflow: hidden;
+    }
+    
+    header {
+      background-color: #d42426;
+      color: white;
+      padding: 20px;
+      text-align: center;
+    }
+    
+    header h1 {
+      font-size: 24px;
+      margin-bottom: 5px;
+    }
+    
+    .tabs {
+      display: flex;
+      background-color: #f1f1f1;
+    }
+    
+    .tab {
+      padding: 15px 20px;
+      cursor: pointer;
+      flex: 1;
+      text-align: center;
+      transition: background-color 0.3s;
+    }
+    
+    .tab:hover {
+      background-color: #e0e0e0;
+    }
+    
+    .tab.active {
+      background-color: white;
+      font-weight: bold;
+      border-bottom: 3px solid #d42426;
+    }
+    
+    .content {
+      padding: 20px;
+    }
+    
+    .form-group {
+      margin-bottom: 15px;
+    }
+    
+    label {
+      display: block;
+      margin-bottom: 5px;
+      font-weight: bold;
+    }
+    
+    input[type="text"],
+    input[type="password"],
+    textarea {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      font-size: 16px;
+    }
+    
+    button {
+      background-color: #d42426;
+      color: white;
+      border: none;
+      padding: 10px 15px;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 16px;
+      transition: background-color 0.3s;
+    }
+    
+    button:hover {
+      background-color: #b91c1e;
+    }
+    
+    .message-container {
+      max-height: 300px;
+      overflow-y: auto;
+      margin-bottom: 15px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      padding: 10px;
+    }
+    
+    .message {
+      padding: 10px;
+      margin-bottom: 10px;
+      border-radius: 4px;
+    }
+    
+    .message.sent {
+      background-color: #e1f5fe;
+      margin-left: 20px;
+      border-left: 4px solid #0288d1;
+    }
+    
+    .message.received {
+      background-color: #f1f8e9;
+      margin-right: 20px;
+      border-left: 4px solid #689f38;
+    }
+    
+    .message-time {
+      font-size: 12px;
+      color: #666;
+      margin-top: 5px;
+    }
+    
+    .notification {
+      padding: 10px;
+      margin-bottom: 15px;
+      border-radius: 4px;
+      text-align: center;
+    }
+    
+    .notification.success {
+      background-color: #dff0d8;
+      color: #3c763d;
+    }
+    
+    .notification.error {
+      background-color: #f2dede;
+      color: #a94442;
+    }
+    
+    .hidden {
+      display: none;
+    }
+    
+    #adminPanel {
+      background-color: #fffde7;
+      padding: 15px;
+      border-radius: 4px;
+      margin-top: 20px;
+    }
+    
+    .santa-info {
+      background-color: #f5f5f5;
+      padding: 15px;
+      border-radius: 4px;
+      margin-bottom: 15px;
+      border-left: 4px solid #d42426;
+    }
+    
+    .festive-icon {
+      font-size: 24px;
+      margin-right: 10px;
+    }
+    
+    .loading {
+      text-align: center;
+      padding: 20px;
+      color: #666;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>🎅 Secret Santa Messenger 🎄</h1>
+      <p>Share the holiday spirit, anonymously!</p>
+    </header>
+    
+    <div class="tabs">
+      <div class="tab active" data-tab="login">Login</div>
+      <div class="tab" data-tab="register">Register</div>
+      <div class="tab hidden" data-tab="messages">Messages</div>
+      <div class="tab" data-tab="admin">Admin</div>
+    </div>
+    
+    <div class="content">
+      <!-- Login Form -->
+      <div id="loginSection" class="tab-content">
+        <div id="loginNotification" class="notification hidden"></div>
+        <div class="form-group">
+          <label for="loginUsername">Username</label>
+          <input type="text" id="loginUsername" placeholder="Enter your username">
+        </div>
+        <div class="form-group">
+          <label for="loginPassword">Password</label>
+          <input type="password" id="loginPassword" placeholder="Enter your password">
+        </div>
+        <button id="loginButton">Login</button>
+      </div>
+      
+      <!-- Register Form -->
+      <div id="registerSection" class="tab-content hidden">
+        <div id="registerNotification" class="notification hidden"></div>
+        <div class="form-group">
+          <label for="registerUsername">Choose Username</label>
+          <input type="text" id="registerUsername" placeholder="Create a username">
+        </div>
+        <div class="form-group">
+          <label for="registerPassword">Choose Password</label>
+          <input type="password" id="registerPassword" placeholder="Create a password">
+        </div>
+        <button id="registerButton">Register</button>
+      </div>
+      
+      <!-- Messages Section -->
+      <div id="messagesSection" class="tab-content hidden">
+        <div id="messageNotification" class="notification hidden"></div>
+        <div id="santaInfo" class="santa-info hidden">
+          <p><span class="festive-icon">🎁</span> You are the Secret Santa for: <strong id="assignedPersonName"></strong></p>
+        </div>
+        
+        <div class="message-container" id="messageContainer">
+          <div class="loading">Loading messages...</div>
+        </div>
+        
+        <div class="form-group">
+          <label for="messageInput">Write a message to your giftee</label>
+          <textarea id="messageInput" rows="3" placeholder="Type your message here..."></textarea>
+        </div>
+        <button id="sendButton">Send Message</button>
+      </div>
+      
+      <!-- Admin Section -->
+      <div id="adminSection" class="tab-content hidden">
+        <div id="adminNotification" class="notification hidden"></div>
+        <div class="form-group">
+          <label for="adminPassword">Admin Password</label>
+          <input type="password" id="adminPassword" placeholder="Enter admin password">
+        </div>
+        <button id="assignButton">Assign Secret Santas</button>
+        
+        <div id="adminPanel" class="hidden">
+          <h3>Participant List</h3>
+          <div id="participantList">Loading participants...</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Mock backend for demo purposes
+    const mockBackend = {
+      users: {},
+      secretSantaAssignments: {},
+      messages: [],
+      
+      register(username, password) {
+        return new Promise((resolve, reject) => {
+          setTimeout(() => {
+            if (this.users[username]) {
+              reject({ error: 'Username already exists' });
+              return;
+            }
+            
+            const userId = Date.now().toString();
+            this.users[username] = {
+              id: userId,
+              username,
+              password // In a real app, this would be hashed
+            };
+            
+            resolve({ userId, username });
+          }, 500);
+        });
+      },
+      
+      login(username, password) {
+        return new Promise((resolve, reject) => {
+          setTimeout(() => {
+            if (!this.users[username]) {
+              reject({ error: 'User not found' });
+              return;
+            }
+            
+            if (this.users[username].password !== password) {
+              reject({ error: 'Invalid password' });
+              return;
+            }
+            
+            resolve({
+              userId: this.users[username].id,
+              username,
+              assignedPerson: this.secretSantaAssignments[username]
+            });
+          }, 500);
+        });
+      },
+      
+      assignSecretSantas(adminPassword) {
+        return new Promise((resolve, reject) => {
+          setTimeout(() => {
+            if (adminPassword !== 'santa2025') {
+              reject({ error: 'Not authorized' });
+              return;
+            }
+            
+            const participants = Object.keys(this.users);
+            
+            if (participants.length < 2) {
+              reject({ error: 'Need at least 2 participants' });
+              return;
+            }
+            
+            // Shuffle participants
+            for (let i = participants.length - 1; i > 0; i--) {
+              const j = Math.floor(Math.random() * (i + 1));
+              [participants[i], participants[j]] = [participants[j], participants[i]];
+            }
+            
+            // Assign each person to the next person in the shuffled array
+            for (let i = 0; i < participants.length; i++) {
+              const nextIndex = (i + 1) % participants.length;
+              this.secretSantaAssignments[participants[i]] = participants[nextIndex];
+            }
+            
+            resolve({ success: true, message: 'Secret Santas assigned!' });
+          }, 500);
+        });
+      },
+      
+      getMessages(username) {
+        return new Promise(resolve => {
+          setTimeout(() => {
+            const userMessages = this.messages.filter(msg => 
+              msg.to === username || 
+              (msg.from === username && msg.to === this.secretSantaAssignments[username])
+            );
+            
+            resolve(userMessages);
+          }, 500);
+        });
+      },
+      
+      sendMessage(from, content) {
+        return new Promise((resolve, reject) => {
+          setTimeout(() => {
+            if (!from || !this.secretSantaAssignments[from]) {
+              reject({ error: 'Not authorized or no assignment' });
+              return;
+            }
+            
+            const to = this.secretSantaAssignments[from];
+            
+            const message = {
+              id: Date.now().toString(),
+              from,
+              to,
+              content,
+              timestamp: new Date().toISOString(),
+              isAnonymous: true
+            };
+            
+            this.messages.push(message);
+            
+            resolve(message);
+            
+            // Simulate receiving a message after a delay
+            if (Math.random() > 0.5) {
+              setTimeout(() => {
+                const responses = [
+                  "Thank you for the message! Can't wait to see what you got me!",
+                  "This Secret Santa thing is so exciting!",
+                  "Any hints about my gift? 😉",
+                  "I hope you're having a wonderful holiday season!",
+                  "Do you need any more info about my wishlist?"
+                ];
+                
+                const responseMsg = {
+                  id: Date.now().toString(),
+                  from: to,
+                  to: from,
+                  content: responses[Math.floor(Math.random() * responses.length)],
+                  timestamp: new Date().toISOString(),
+                  isAnonymous: true
+                };
+                
+                this.messages.push(responseMsg);
+                
+                // Notify any listeners
+                if (this.messageListeners[from]) {
+                  this.messageListeners[from](responseMsg);
+                }
+              }, 3000 + Math.random() * 5000);
+            }
+          }, 500);
+        });
+      },
+      
+      messageListeners: {},
+      
+      onNewMessage(username, callback) {
+        this.messageListeners[username] = callback;
+      },
+      
+      getParticipants() {
+        return new Promise(resolve => {
+          setTimeout(() => {
+            const participants = Object.keys(this.users).map(username => ({
+              username,
+              assignedTo: this.secretSantaAssignments[username] || 'Not assigned yet'
+            }));
+            
+            resolve(participants);
+          }, 500);
+        });
+      }
+    };
+    
+    // App State
+    let currentUser = null;
+    
+    // DOM Elements
+    const tabs = document.querySelectorAll('.tab');
+    const tabContents = document.querySelectorAll('.tab-content');
+    
+    const loginForm = {
+      username: document.getElementById('loginUsername'),
+      password: document.getElementById('loginPassword'),
+      button: document.getElementById('loginButton'),
+      notification: document.getElementById('loginNotification')
+    };
+    
+    const registerForm = {
+      username: document.getElementById('registerUsername'),
+      password: document.getElementById('registerPassword'),
+      button: document.getElementById('registerButton'),
+      notification: document.getElementById('registerNotification')
+    };
+    
+    const messageSection = {
+      container: document.getElementById('messageContainer'),
+      input: document.getElementById('messageInput'),
+      sendButton: document.getElementById('sendButton'),
+      notification: document.getElementById('messageNotification'),
+      santaInfo: document.getElementById('santaInfo'),
+      assignedPersonName: document.getElementById('assignedPersonName')
+    };
+    
+    const adminSection = {
+      password: document.getElementById('adminPassword'),
+      assignButton: document.getElementById('assignButton'),
+      notification: document.getElementById('adminNotification'),
+      panel: document.getElementById('adminPanel'),
+      participantList: document.getElementById('participantList')
+    };
+    
+    // Tab Navigation
+    tabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        const tabName = tab.dataset.tab;
+        
+        // Special case for messages tab - only show if logged in
+        if (tabName === 'messages' && !currentUser) {
+          showNotification(loginForm.notification, 'Please login first', 'error');
+          return;
+        }
+        
+        // Activate selected tab
+        tabs.forEach(t => t.classList.remove('active'));
+        tab.classList.add('active');
+        
+        // Show selected content
+        tabContents.forEach(content => content.classList.add('hidden'));
+        document.getElementById(`${tabName}Section`).classList.remove('hidden');
+        
+        // Refresh content as needed
+        if (tabName === 'messages' && currentUser) {
+          loadMessages();
+        } else if (tabName === 'admin') {
+          loadParticipants();
+        }
+      });
+    });
+    
+    // Register Form Submission
+    registerForm.button.addEventListener('click', async () => {
+      const username = registerForm.username.value.trim();
+      const password = registerForm.password.value;
+      
+      if (!username || !password) {
+        showNotification(registerForm.notification, 'Please fill in all fields', 'error');
+        return;
+      }
+      
+      try {
+        await mockBackend.register(username, password);
+        showNotification(registerForm.notification, 'Registration successful! You can now login.', 'success');
+        registerForm.username.value = '';
+        registerForm.password.value = '';
+        
+        // Switch to login tab
+        document.querySelector('.tab[data-tab="login"]').click();
+      } catch (error) {
+        showNotification(registerForm.notification, error.error, 'error');
+      }
+    });
+    
+    // Login Form Submission
+    loginForm.button.addEventListener('click', async () => {
+      const username = loginForm.username.value.trim();
+      const password = loginForm.password.value;
+      
+      if (!username || !password) {
+        showNotification(loginForm.notification, 'Please fill in all fields', 'error');
+        return;
+      }
+      
+      try {
+        const userData = await mockBackend.login(username, password);
+        currentUser = userData;
+        
+        // Show success and switch to messages tab
+        showNotification(loginForm.notification, 'Login successful!', 'success');
+        loginForm.username.value = '';
+        loginForm.password.value = '';
+        
+        // Update UI for logged in user
+        document.querySelector('.tab[data-tab="messages"]').classList.remove('hidden');
+        document.querySelector('.tab[data-tab="messages"]').click();
+        
+        // Set up message listener
+        mockBackend.onNewMessage(currentUser.username, message => {
+          addMessageToUI(message);
+        });
+        
+        // Update Santa info
+        if (currentUser.assignedPerson) {
+          messageSection.santaInfo.classList.remove('hidden');
+          messageSection.assignedPersonName.textContent = currentUser.assignedPerson;
+        } else {
+          messageSection.santaInfo.classList.add('hidden');
+          showNotification(messageSection.notification, 'Secret Santas haven\'t been assigned yet!', 'error');
+        }
+      } catch (error) {
+        showNotification(loginForm.notification, error.error, 'error');
+      }
+    });
+    
+    // Send Message
+    messageSection.sendButton.addEventListener('click', async () => {
+      const content = messageSection.input.value.trim();
+      
+      if (!content) {
+        showNotification(messageSection.notification, 'Please enter a message', 'error');
+        return;
+      }
+      
+      if (!currentUser || !currentUser.assignedPerson) {
+        showNotification(messageSection.notification, 'You need to be assigned a Secret Santa recipient first!', 'error');
+        return;
+      }
+      
+      try {
+        const message = await mockBackend.sendMessage(currentUser.username, content);
+        addMessageToUI(message);
+        messageSection.input.value = '';
+      } catch (error) {
+        showNotification(messageSection.notification, error.error, 'error');
+      }
+    });
+    
+    // Assign Secret Santas
+    adminSection.assignButton.addEventListener('click', async () => {
+      const password = adminSection.password.value;
+      
+      if (!password) {
+        showNotification(adminSection.notification, 'Please enter admin password', 'error');
+        return;
+      }
+      
+      try {
+        const result = await mockBackend.assignSecretSantas(password);
+        showNotification(adminSection.notification, result.message, 'success');
+        adminSection.panel.classList.remove('hidden');
+        loadParticipants();
+        
+        // Refresh current user data if logged in
+        if (currentUser) {
+          const userData = await mockBackend.login(currentUser.username, mockBackend.users[currentUser.username].password);
+          currentUser = userData;
+          
+          if (currentUser.assignedPerson) {
+            messageSection.santaInfo.classList.remove('hidden');
+            messageSection.assignedPersonName.textContent = currentUser.assignedPerson;
+          }
+        }
+      } catch (error) {
+        showNotification(adminSection.notification, error.error, 'error');
+      }
+    });
+    
+    // Load Messages
+    async function loadMessages() {
+      if (!currentUser) return;
+      
+      messageSection.container.innerHTML = '<div class="loading">Loading messages...</div>';
+      
+      try {
+        const messages = await mockBackend.getMessages(currentUser.username);
+        
+        if (messages.length === 0) {
+          messageSection.container.innerHTML = '<p>No messages yet. Start the conversation!</p>';
+        } else {
+          messageSection.container.innerHTML = '';
+          messages.forEach(message => addMessageToUI(message));
+        }
+      } catch (error) {
+        messageSection.container.innerHTML = '<p>Error loading messages. Please try again.</p>';
+      }
+    }
+    
+    // Add Message to UI
+    function addMessageToUI(message) {
+      const messageEl = document.createElement('div');
+      const isSent = message.from === currentUser.username;
+      
+      messageEl.className = `message ${isSent ? 'sent' : 'received'}`;
+      
+      const formattedTime = new Date(message.timestamp).toLocaleString();
+      
+      messageEl.innerHTML = `
+        <p>${message.content}</p>
+        <div class="message-time">${isSent ? 'Sent' : 'Received'} ${formattedTime}</div>
+      `;
+      
+      messageSection.container.appendChild(messageEl);
+      messageSection.container.scrollTop = messageSection.container.scrollHeight;
+    }
+    
+    // Load Participants
+    async function loadParticipants() {
+      adminSection.participantList.innerHTML = '<p>Loading participants...</p>';
+      
+      try {
+        const participants = await mockBackend.getParticipants();
+        
+        if (participants.length === 0) {
+          adminSection.participantList.innerHTML = '<p>No participants registered yet.</p>';
+        } else {
+          adminSection.participantList.innerHTML = '';
+          
+          const ul = document.createElement('ul');
+          participants.forEach(participant => {
+            const li = document.createElement('li');
+            li.textContent = `${participant.username} → ${participant.assignedTo}`;
+            ul.appendChild(li);
+          });
+          
+          adminSection.participantList.appendChild(ul);
+        }
+      } catch (error) {
+        adminSection.participantList.innerHTML = '<p>Error loading participants.</p>';
+      }
+    }
+    
+    // Helper function to show notifications
+    function showNotification(element, message, type) {
+      element.textContent = message;
+      element.className = `notification ${type}`;
+      element.classList.remove('hidden');
+      
+      setTimeout(() => {
+        element.classList.add('hidden');
+      }, 5000);
+    }
+    
+    // Initialize demo with sample data
+    (async function initDemo() {
+      // Pre-register some users
+      await mockBackend.register('alex', 'password123');
+      await mockBackend.register('jordan', 'password123');
+      await mockBackend.register('taylor', 'password123');
+      await mockBackend.register('sam', 'password123');
+    })();
+  </script>
+</body>
+</html>
